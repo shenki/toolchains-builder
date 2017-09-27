@@ -192,6 +192,16 @@ function set_test_config {
           test_defconfig="qemu_nios2_10m50_defconfig"
     #     qemu_system_command="qemu-system-nios2
     #         -kernel ${test_dir}/images/vmlinux"
+    elif [[ "${arch_name}" == "powerpc64le-power8" ]]; then               # powerpc64le-power8
+        test_defconfig="qemu_ppc64le_pseries_defconfig"
+        qemu_system_command="qemu-system-ppc64le
+            -machine pseries
+            -cpu POWER8
+            -kernel ${test_dir}/images/vmlinux
+            -drive file=${test_dir}/images/rootfs.ext2,index=0,if=scsi,format=raw
+            -append \"console=hvc0 root=/dev/sda rw\"
+            -display curses
+            -nographic"
     elif [[ "${arch_name}" == "powerpc64-power8" ]]; then               # powerpc64-power8
         test_defconfig="qemu_ppc64_pseries_defconfig"
         qemu_system_command="qemu-system-ppc64
